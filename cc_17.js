@@ -3,13 +3,13 @@ class Customer {
     constructor(name, email) {
         this.name = name;
         this.email = email;
-        this.purchaseHistory = [];
+        this.purchaseHistory = []; // Adding array to store purchase amounts
     }
     addPurchase(amount) {
-        this.purchaseHistory.push(amount);
+        this.purchaseHistory.push(amount); // Adding method to add purchase amount to history
     }
     getTotalSpent() {
-        return this.purchaseHistory.reduce((total, amount) => total + amount, 0);
+        return this.purchaseHistory.reduce((total, amount) => total + amount, 0); // Adding method to return total amount spent
     }
 }
 
@@ -17,14 +17,14 @@ class Customer {
 class SalesRep {
     constructor(name) {
         this.name = name;
-        this.clients = [];
+        this.clients = []; // Adding array to store customer objects
     }
     addClient(customer) {
-        this.clients.push(customer);
+        this.clients.push(customer); // Adding method to add cusotmer to the list
     }
     getClientTotal(name) {
-        const client = this.clients.find(client => client.name === name);
-        return client ? client.getTotalSpent() : 0;
+        const client = this.clients.find(client => client.name === name); // Finding customer by name
+        return client ? client.getTotalSpent() : 0; // Returning 0 if cusotmer not found
     }
 }
 
@@ -67,12 +67,12 @@ salesRep.addClient(vipCustomer1);
 salesRep.addClient(vipCustomer2);
 
 // Task4- Build a Client Report System
-const totalRevenue = salesRep.clients.reduce((total, client) => total + client.getTotalSpent(), 0);
-const highSpenders = salesRep.clients.filter(client => client.getTotalSpent() > 500);
-const customerSummary = salesRep.clients.map(client => ({
+const totalRevenue = salesRep.clients.reduce((total, client) => total + client.getTotalSpent(), 0); // Adding all client total
+const highSpenders = salesRep.clients.filter(client => client.getTotalSpent() > 500); // Filtering customers spending over $500
+const customerSummary = salesRep.clients.map(client => ({ 
     name: client.name,
     totalSpent: client.getTotalSpent().toFixed(2)
-}));
+})); // Creating Summary with customer name and total spent
 
 // Logging to the console
 console.log(`Sales Rep: ${salesRep.name}`);
@@ -84,4 +84,4 @@ highSpenders.forEach(client =>
 console.log("Customer Summary:");
 customerSummary.forEach(summary => 
     console.log(`- ${summary.name}: $${summary.totalSpent}`)
-);
+); // Logging everything to the console
