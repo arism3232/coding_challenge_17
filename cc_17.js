@@ -83,5 +83,5 @@ highSpenders.forEach(client =>
 );
 console.log("Customer Summary:");
 customerSummary.forEach(summary => 
-    console.log(`- ${summary.name}: $${summary.totalSpent}`)
-); // Logging everything to the console
+    console.log(`- ${summary.name}: $${summary.totalSpent}`) // Logging everything to the console
+); // Redid console logs for better structured execution
