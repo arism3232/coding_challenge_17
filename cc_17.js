@@ -51,23 +51,37 @@ customer2.addPurchase(100.00);
 customer2.addPurchase(50.75); // Task2
 
 // Creating VIP cusotmer
-const vipCustomer = new VIPCustomer("Lee Chaeryeong", "chaeryeong@example.com", "Platinum");
-vipCustomer.addPurchase(200.00); // Task3 
-vipCustomer.addPurchase(150.00); // ($200+$150)*1.10= $385.00 for Platinum
+const vipCustomer1 = new VIPCustomer("Lee Chaeryeong", "chaeryeong@example.com", "Platinum");
+vipCustomer1.addPurchase(200.00); // Task3 
+vipCustomer1.addPurchase(150.00); // ($200+$150)*1.10= $385.00 for Platinum
+
+const vipCustomer2 = new VIPCustomer("Shin Yuna", "yuna@example.com", "Gold");
+vipCustomer2.addPurchase(500.00); // Task4 Adding another vip customer for Gold
+vipCustomer2.addPurchase(300.00); // ($500+$300)*1.10= $880
 
 // Creating sales rep and adding clients
 const salesRep = new SalesRep("Shin Ryujin");
 salesRep.addClient(customer1);
 salesRep.addClient(customer2);
-salesRep.addClient(vipCustomer);
+salesRep.addClient(vipCustomer1);
+salesRep.addClient(vipCustomer2);
+
+// Task4- Build a Client Report System
+const totalRevenue = salesRep.clients.reduce((total, client) => total + client.getTotalSpent(), 0);
+const highSpenders = salesRep.clients.filter(client => client.getTotalSpent() > 500);
+const customerSummary = salesRep.clients.map(client => ({
+    name: client.name,
+    totalSpent: client.getTotalSpent().toFixed(2)
+}));
 
 // Logging to the console
-console.log(`New customer created: ${customer1.name}, Email: ${customer1.email}`);
-console.log(`Total spent by ${customer1.name}: $${customer1.getTotalSpent().toFixed(2)}`); // Task1
-
 console.log(`Sales Rep: ${salesRep.name}`);
-console.log(`Clients: ${salesRep.clients.map(client => client.name).join(", ")}`);
-console.log(`Total spent by ${customer2.name}: $${salesRep.getClientTotal(customer2.name).toFixed(2)}`); // Task2
-
-console.log(`VIP Customer: ${vipCustomer.name}, Level: ${vipCustomer.vipLevel}`);
-console.log(`Total spent with bonus by ${vipCustomer.name}: $${vipCustomer.getTotalSpent().toFixed(2)}`); // Task3
+console.log(`Total Revenue: $${totalRevenue.toFixed(2)}`);
+console.log("High-Spending Customers (> $500):");
+highSpenders.forEach(client =>
+    console.log(`- ${client.name}: $${client.getTotalSpent().toFixed(2)}`)
+);
+console.log("Customer Summary:");
+customerSummary.forEach(summary => 
+    console.log(`- ${summary.name}: $${summary.totalSpent}`)
+);
